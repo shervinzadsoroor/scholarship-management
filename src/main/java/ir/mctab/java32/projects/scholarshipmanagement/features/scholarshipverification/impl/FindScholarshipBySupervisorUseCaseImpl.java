@@ -18,7 +18,7 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
         User loginUser = AuthenticationService.getInstance().getLoginUser();
         List<Scholarship> result = new ArrayList();
         if (loginUser != null) {
-            if (loginUser.getRole().equals("Supervisor")) {
+            if (loginUser.getRole().equalsIgnoreCase("Supervisor")) {
                 // connection
                 Connection connection = null;
                 try {
@@ -29,12 +29,16 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
                     PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                     ResultSet rs = preparedStatement1.executeQuery();
                     String status = null;
+                    boolean isContainingRequestedByStudent = false;
                     while (rs.next()) {
                         status = rs.getString("status");
+                        if (status.equalsIgnoreCase("RequestedByStudent")) {
+                            isContainingRequestedByStudent = true;
+                        }
                     }
-                    if (!status.equals("RequestedByStudent")){
+                    if (!isContainingRequestedByStudent) {
                         System.out.println("NOTHING TO SHOW !!!");
-                    }else {
+                    } else if (isContainingRequestedByStudent) {
                         String sql = "select * from scholarship where status = 'RequestedByStudent' ";
                         // result
                         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -68,4 +72,28 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
 
         return result;
     }
+
+    public void find(String command, User user) {
+        FindScholarshipBySupervisorUseCase findScholarshipBySupervisorUseCase
+                = new FindScholarshipBySupervisorUseCaseImpl();
+
+        List<Scholarship> scholarships = findScholarshipBySupervisorUseCase
+                .listScholarships();
+        if (scholarships.size() > 0) {
+            System.out.printf("%-5s%-25s%-15s%-15s%-17s%-15s%-15s%-20s%-15s%-15s%-15s%-20s%s\n%s\n",
+                    "id", "status", "name", "family", "national code", "last uni", "last degree", "last field",
+                    "last score", "apply uni", "apply degree", "apply field", "apply date",
+                    "-------------------------------------------------------------------------------------------" +
+                            "-----------------------------------------------------------------------------------" +
+                            "------------------------------");
+            for (int i = 0; i < scholarships.size(); i++) {
+                scholarships.get(i).showScholarship();
+            }
+            System.out.println("-------------------------------------------------------------------------------------------" +
+                    "-----------------------------------------------------------------------------------" +
+                    "------------------------------");
+
+        }
+    }
+
 }

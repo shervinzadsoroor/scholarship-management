@@ -144,22 +144,10 @@ public class Scholarship {
         this.applyDate = applyDate;
     }
 
-    @Override
-    public String toString() {
-        return "Scholarship{" +
-                "id=" + id +
-                ", status='" + status + '\'' +
-                ", name='" + name + '\'' +
-                ", family='" + family + '\'' +
-                ", nationalCode='" + nationalCode + '\'' +
-                ", lastUni='" + lastUni + '\'' +
-                ", lastDegree='" + lastDegree + '\'' +
-                ", lastField='" + lastField + '\'' +
-                ", lastScore=" + lastScore +
-                ", applyUni='" + applyUni + '\'' +
-                ", applyDegree='" + applyDegree + '\'' +
-                ", applyField='" + applyField + '\'' +
-                ", applyDate='" + applyDate + '\'' +
-                '}';
+    public void showScholarship() {
+
+        System.out.printf("%-5d%-25s%-15s%-15s%-17s%-15s%-15s%-20s%-15.2f%-15s%-15s%-20s%s\n",
+                id, status, name, family, nationalCode, lastUni, lastDegree, lastField, lastScore, applyUni,
+                applyDegree, applyField, applyDate);
     }
 }
