@@ -18,9 +18,15 @@ public class ScholarshipManagementApplication {
 
         Scanner scanner = new Scanner(System.in);
         String command = "";
-        while (! command.equals("exit")) {
-            System.out.println("what do you want? ");
+        User user = null;
+        while (!command.equals("exit")) {
+            if (user == null) {
+                System.out.println("what do you want? (exit | login) :");
+            }
             command = scanner.nextLine();
+            if (user==null && !command.equals("exit") &&!command.equals("login")){
+                System.out.println("WRONG COMMAND !!!");
+            }
             // Login
             if (command.equals("login")) {
                 System.out.println("Username : ");
@@ -28,13 +34,14 @@ public class ScholarshipManagementApplication {
                 System.out.println("Password : ");
                 String password = scanner.nextLine();
                 LoginUseCase loginUseCase = new LoginUseCaseImpl();
-                User user = loginUseCase.login(username, password);
+                user = loginUseCase.login(username, password);
                 if (user != null) {
-                    System.out.println(" Login successful by " + user.getRole());
+                    System.out.printf("+----------------------------------+\n|  Login successful by %-12s|\n" +
+                            "+----------------------------------+\n", user.getRole());
                 }
             }
             // find scholarship by supervisor
-            if (command.equals("svlist")) {
+            if (command.equals("svlist") && user.getRole().equals("Supervisor")) {
                 FindScholarshipBySupervisorUseCase findScholarshipBySupervisorUseCase
                         = new FindScholarshipBySupervisorUseCaseImpl();
 
@@ -44,15 +51,23 @@ public class ScholarshipManagementApplication {
                     System.out.println(scholarships.get(i));
                 }
             }
+            // the if below is between two if blocks because the result of the above if may be NOTHING TO SHOW
+            // and the purpose is to keep the sequence of showing messages
+            if (command.equals("logout")){
+                user=null;
+            }
+            if (user !=null &&user.getRole().equals("Supervisor")) {
+                System.out.println("what do you want? ( svlist | svaccept | logout):");
+            }
 
             // accept
-            if (command.equals("svaccept")) {
+            if (command.equals("svaccept") && user.getRole().equals("Supervisor")) {
                 AcceptScholarshipBySupervisorUseCase acceptScholarshipBySupervisorUseCase
                         = new AcceptScholarshipBySupervisorUseCaseImpl();
                 System.out.println("Scholarship Id: ");
                 String scholarshipId = scanner.nextLine();
                 acceptScholarshipBySupervisorUseCase.accept(Long.parseLong(scholarshipId));
-                System.out.println("Done.");
+
             }
         }
     }
