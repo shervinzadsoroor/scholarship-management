@@ -2,7 +2,8 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverif
 
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.Service;
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
+import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.FindScholarshipByUniversityUseCase;
 
 @Service
-public class FindScholarshipByUniversityUseCaseImpl {
+public class FindScholarshipByUniversityUseCaseImpl implements FindScholarshipByUniversityUseCase {
 }

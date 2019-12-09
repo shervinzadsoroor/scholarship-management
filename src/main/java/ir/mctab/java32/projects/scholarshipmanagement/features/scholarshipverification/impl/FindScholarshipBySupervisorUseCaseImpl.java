@@ -1,5 +1,6 @@
 package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.impl;
 
+import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.Service;
 import ir.mctab.java32.projects.scholarshipmanagement.core.config.DatabaseConfig;
 import ir.mctab.java32.projects.scholarshipmanagement.core.share.AuthenticationService;
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.FindScholarshipBySupervisorUseCase;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBySupervisorUseCase {
     public List<Scholarship> listScholarships() {
         User loginUser = AuthenticationService.getInstance().getLoginUser();

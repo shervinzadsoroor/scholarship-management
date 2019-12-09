@@ -94,7 +94,7 @@ public class User {
             System.out.println("what do you want? ( mglist | mgaccept | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Student")) {
-            System.out.println("what do you want? ( stlist | staccept | logout):");
+            System.out.println("what do you want? ( stlist | apply | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("University")) {
             System.out.println("what do you want? ( unilist | uniaccept | logout):");
