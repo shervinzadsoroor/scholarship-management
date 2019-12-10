@@ -57,6 +57,14 @@ public class ScholarshipManagementApplication {
                     String scholarshipId = scanner.nextLine();
                     acceptScholarshipBySupervisorUseCase.accept(Long.parseLong(scholarshipId));
                 }
+                // reject by supervisor
+                if (user != null && command.equalsIgnoreCase("svreject") && user.getRole().equalsIgnoreCase("Supervisor")) {
+                    RejectScholarshipBySupervisorUseCase rejectScholarshipBySupervisorUseCase
+                            = new RejectScholarshipBySupervisorUseCaseImpl();
+                    System.out.println("Scholarship Id: ");
+                    String scholarshipID = scanner.nextLine();
+                    rejectScholarshipBySupervisorUseCase.reject(Long.parseLong(scholarshipID));
+                }
                 //_____________________________________________________________________________________________________________
 
                 //find scholarship by manager .................
@@ -73,10 +81,26 @@ public class ScholarshipManagementApplication {
                     String scholarshipId = scanner.nextLine();
                     acceptScholarshipByManagerUseCase.accept(Long.parseLong(scholarshipId));
                 }
+                // reject by manager
+                if (user != null && command.equalsIgnoreCase("mgreject") && user.getRole().equalsIgnoreCase("Manager")) {
+                    RejectScholarshipByManagerUseCase rejectScholarshipByManagerUseCase
+                            = new RejectScholarshipByManagerUseCaseImpl();
+                    System.out.println("Scholarship Id: ");
+                    String ScholarshipID = scanner.nextLine();
+                    rejectScholarshipByManagerUseCase.reject(Long.parseLong(ScholarshipID));
+                }
                 //_____________________________________________________________________________________________________________
 
 
-                //find by student todo
+                //find by student
+                if (user != null && command.equalsIgnoreCase("status") && user.getRole().equalsIgnoreCase("Student")) {
+                    FindScholarshipByStudentUseCase findScholarshipByStudentUseCase
+                            = new FindScholarshipByStudentUseCaseImpl();
+                    System.out.println("Scholarship Id: ");
+                    String scholarshipid = scanner.nextLine();
+                    findScholarshipByStudentUseCase.find(Long.parseLong(scholarshipid));
+                }
+
                 //apply by student
                 if (user != null && command.equalsIgnoreCase("apply") && user.getRole().equalsIgnoreCase("Student")) {
                     ApplyByStudentUseCase applyByStudentUseCase = new ApplyByStudentUseCaseImpl();

@@ -2,6 +2,9 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverif
 
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 
+import java.sql.SQLException;
+
 @UseCase
 public interface RejectScholarshipBySupervisorUseCase {
+    void reject(Long id) throws SQLException;
 }

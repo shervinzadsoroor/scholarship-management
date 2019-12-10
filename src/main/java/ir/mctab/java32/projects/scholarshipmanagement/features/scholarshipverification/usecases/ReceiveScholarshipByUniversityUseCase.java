@@ -3,5 +3,6 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverif
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 
 @UseCase
-public interface RequestScholarshipByStudentUseCase {
+public interface ReceiveScholarshipByUniversityUseCase {
+    void receive();
 }

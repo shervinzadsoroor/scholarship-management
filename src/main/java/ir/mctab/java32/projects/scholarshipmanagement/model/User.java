@@ -88,13 +88,13 @@ public class User {
 
     public static void showOptionsForEachRole(User user){
         if (user != null && user.getRole().equalsIgnoreCase("Supervisor")) {
-            System.out.println("what do you want? ( svlist | svaccept | logout):");
+            System.out.println("what do you want? ( svlist | svaccept | svreject | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Manager")) {
-            System.out.println("what do you want? ( mglist | mgaccept | logout):");
+            System.out.println("what do you want? ( mglist | mgaccept | mgreject | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Student")) {
-            System.out.println("what do you want? ( stlist | apply | logout):");
+            System.out.println("what do you want? ( status | apply | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("University")) {
             System.out.println("what do you want? ( unilist | uniaccept | logout):");
