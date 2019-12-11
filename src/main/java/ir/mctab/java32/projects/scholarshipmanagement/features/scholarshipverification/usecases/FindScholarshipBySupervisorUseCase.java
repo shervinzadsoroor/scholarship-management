@@ -11,5 +11,5 @@ import java.util.List;
 public interface FindScholarshipBySupervisorUseCase {
 
     List<Scholarship> listScholarships();
-    void find(String command, User user);
+    void find();
 }

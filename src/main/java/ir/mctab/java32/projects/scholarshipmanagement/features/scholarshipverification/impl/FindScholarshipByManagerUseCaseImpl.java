@@ -75,7 +75,7 @@ public class FindScholarshipByManagerUseCaseImpl implements FindScholarshipByMan
         return result;
     }
 
-    public void find(String command, User user) {
+    public void find() {
         FindScholarshipByManagerUseCase findScholarshipByManagerUseCase
                 = new FindScholarshipByManagerUseCaseImpl();
 

@@ -1,25 +1,21 @@
 package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.impl;
 
-import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.Service;
 import ir.mctab.java32.projects.scholarshipmanagement.core.config.DatabaseConfig;
 import ir.mctab.java32.projects.scholarshipmanagement.core.share.AuthenticationService;
-import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.FindScholarshipBySupervisorUseCase;
+import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.FindScholarshipByUniversityUseCase;
 import ir.mctab.java32.projects.scholarshipmanagement.model.Scholarship;
 import ir.mctab.java32.projects.scholarshipmanagement.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-@Service
-public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBySupervisorUseCase {
+
+public class FindScholarshipByUniversityUseCaseImpl implements FindScholarshipByUniversityUseCase {
     public List<Scholarship> listScholarships() {
         User loginUser = AuthenticationService.getInstance().getLoginUser();
         List<Scholarship> result = new ArrayList();
         if (loginUser != null) {
-            if (loginUser.getRole().equalsIgnoreCase("Supervisor")) {
+            if (loginUser.getRole().equalsIgnoreCase("University")) {
                 // connection
                 Connection connection = null;
                 try {
@@ -30,17 +26,17 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
                     PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                     ResultSet rs = preparedStatement1.executeQuery();
                     String status = null;
-                    boolean isContainingRequestedByStudent = false;
+                    boolean isContainingAcceptedByManager = false;
                     while (rs.next()) {
                         status = rs.getString("status");
-                        if (status.equalsIgnoreCase("RequestedByStudent")) {
-                            isContainingRequestedByStudent = true;
+                        if (status.equalsIgnoreCase("AcceptedByManager")) {
+                            isContainingAcceptedByManager = true;
                         }
                     }
-                    if (!isContainingRequestedByStudent) {
+                    if (!isContainingAcceptedByManager) {
                         System.out.println("NOTHING TO SHOW !!!");
-                    } else if (isContainingRequestedByStudent) {
-                        String sql = "select * from scholarship where status = 'RequestedByStudent' ";
+                    } else if (isContainingAcceptedByManager) {
+                        String sql = "select * from scholarship where status = 'AcceptedByManager' ";
                         // result
                         PreparedStatement preparedStatement = connection.prepareStatement(sql);
                         ResultSet resultSet = preparedStatement.executeQuery();
@@ -75,10 +71,10 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
     }
 
     public void find() {
-        FindScholarshipBySupervisorUseCase findScholarshipBySupervisorUseCase
-                = new FindScholarshipBySupervisorUseCaseImpl();
+        FindScholarshipByUniversityUseCase findScholarshipByUniversityUseCase
+                = new FindScholarshipByUniversityUseCaseImpl();
 
-        List<Scholarship> scholarships = findScholarshipBySupervisorUseCase
+        List<Scholarship> scholarships = findScholarshipByUniversityUseCase
                 .listScholarships();
         if (scholarships.size() > 0) {
             System.out.printf("%-5s%-25s%-15s%-15s%-17s%-15s%-15s%-20s%-15s%-15s%-15s%-20s%s\n%s\n",
@@ -96,5 +92,4 @@ public class FindScholarshipBySupervisorUseCaseImpl implements FindScholarshipBy
 
         }
     }
-
 }

@@ -4,5 +4,5 @@ import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 
 @UseCase
 public interface ReceiveScholarshipByUniversityUseCase {
-    void receive();
+    void receive(Long scholarshipId);
 }

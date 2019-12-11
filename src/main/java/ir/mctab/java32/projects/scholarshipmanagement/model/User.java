@@ -97,7 +97,7 @@ public class User {
             System.out.println("what do you want? ( status | apply | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("University")) {
-            System.out.println("what do you want? ( unilist | uniaccept | logout):");
+            System.out.println("what do you want? ( unilist | receive | logout):");
         }
     }
 }

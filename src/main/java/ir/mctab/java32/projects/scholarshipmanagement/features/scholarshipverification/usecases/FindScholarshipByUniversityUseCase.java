@@ -2,13 +2,11 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverif
 
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 import ir.mctab.java32.projects.scholarshipmanagement.model.Scholarship;
-import ir.mctab.java32.projects.scholarshipmanagement.model.User;
 
 import java.util.List;
 
 @UseCase
-public interface FindScholarshipByManagerUseCase {
-
+public interface FindScholarshipByUniversityUseCase {
     List<Scholarship> listScholarships();
 
     void find();
