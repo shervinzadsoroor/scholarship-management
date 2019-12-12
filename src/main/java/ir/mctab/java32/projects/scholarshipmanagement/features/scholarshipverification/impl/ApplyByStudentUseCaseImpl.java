@@ -3,6 +3,7 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverif
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.Service;
 import ir.mctab.java32.projects.scholarshipmanagement.core.config.DatabaseConfig;
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.ApplyByStudentUseCase;
+import ir.mctab.java32.projects.scholarshipmanagement.model.User;
 
 import java.util.Scanner;
 import java.sql.*;
@@ -53,8 +54,12 @@ public class ApplyByStudentUseCaseImpl implements ApplyByStudentUseCase {
             preparedStatement.setString(9, applyDegree);
             preparedStatement.setString(10, applyField);
             preparedStatement.setString(11, applyDate);
-            //todo checking the reason of not printing the massage
+
             boolean isApplySuccessfully = preparedStatement.execute();
+            //log ..................................
+
+
+            //todo checking the reason of not printing the massage
             if (isApplySuccessfully) {
                 System.out.println("+------------------------+\n|  successfully applied  |\n+------------------------+\n");
             }
@@ -66,3 +71,5 @@ public class ApplyByStudentUseCaseImpl implements ApplyByStudentUseCase {
 
     }
 }
+
+

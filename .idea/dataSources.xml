@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/scholarship</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="scholarshipmanagement@localhost" uuid="c137fb13-4817-4bd5-89d6-d2f975dbae51">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/scholarshipmanagement</jdbc-url>
+    </data-source>
   </component>
 </project>

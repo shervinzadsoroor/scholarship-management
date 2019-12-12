@@ -2,20 +2,16 @@ package ir.mctab.java32.projects.scholarshipmanagement;
 
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.impl.*;
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.*;
-import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.impl.LoginUseCaseImpl;
-import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.usecases.LoginUseCase;
-import ir.mctab.java32.projects.scholarshipmanagement.model.Scholarship;
+import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.impl.LogUseCaseImpl;
 import ir.mctab.java32.projects.scholarshipmanagement.model.User;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 public class ScholarshipManagementApplication {
 
     public static void main(String[] args) {
         try {
-
 
             Scanner scanner = new Scanner(System.in);
             String command = "";
@@ -48,6 +44,8 @@ public class ScholarshipManagementApplication {
                     FindScholarshipBySupervisorUseCase findScholarshipBySupervisorUseCase =
                             new FindScholarshipBySupervisorUseCaseImpl();
                     findScholarshipBySupervisorUseCase.find();
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command);
                 }
                 // accept by supervisor
                 if (user != null && command.equalsIgnoreCase("svaccept") && user.getRole().equalsIgnoreCase("Supervisor")) {
@@ -56,6 +54,8 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String scholarshipId = scanner.nextLine();
                     acceptScholarshipBySupervisorUseCase.accept(Long.parseLong(scholarshipId));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
                 }
                 // reject by supervisor
                 if (user != null && command.equalsIgnoreCase("svreject") && user.getRole().equalsIgnoreCase("Supervisor")) {
@@ -64,6 +64,8 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String scholarshipID = scanner.nextLine();
                     rejectScholarshipBySupervisorUseCase.reject(Long.parseLong(scholarshipID));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipID));
                 }
                 //_____________________________________________________________________________________________________________
 
@@ -72,6 +74,8 @@ public class ScholarshipManagementApplication {
                     FindScholarshipByManagerUseCase findScholarshipByManagerUseCase =
                             new FindScholarshipByManagerUseCaseImpl();
                     findScholarshipByManagerUseCase.find();
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command);
                 }
                 //accept by manager
                 if (user != null && command.equalsIgnoreCase("mgaccept") && user.getRole().equalsIgnoreCase("Manager")) {
@@ -80,6 +84,8 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String scholarshipId = scanner.nextLine();
                     acceptScholarshipByManagerUseCase.accept(Long.parseLong(scholarshipId));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
                 }
                 // reject by manager
                 if (user != null && command.equalsIgnoreCase("mgreject") && user.getRole().equalsIgnoreCase("Manager")) {
@@ -88,6 +94,8 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String ScholarshipID = scanner.nextLine();
                     rejectScholarshipByManagerUseCase.reject(Long.parseLong(ScholarshipID));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command, Long.parseLong(ScholarshipID));
                 }
                 //_____________________________________________________________________________________________________________
 
@@ -96,6 +104,8 @@ public class ScholarshipManagementApplication {
                     FindScholarshipByUniversityUseCase findScholarshipByUniversityUseCase
                             = new FindScholarshipByUniversityUseCaseImpl();
                     findScholarshipByUniversityUseCase.find();
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command);
                 }
                 //receive by university
                 if (user != null && command.equalsIgnoreCase("receive") && user.getRole().equalsIgnoreCase("University")) {
@@ -104,6 +114,8 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String ScholarshipID = scanner.nextLine();
                     receiveScholarshipByUniversityUseCase.receive(Long.parseLong(ScholarshipID));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLog(user, command, Long.parseLong(ScholarshipID));
                 }
 
                 //_____________________________________________________________________________________________________________
@@ -115,12 +127,17 @@ public class ScholarshipManagementApplication {
                     System.out.println("Scholarship Id: ");
                     String scholarshipid = scanner.nextLine();
                     findScholarshipByStudentUseCase.find(Long.parseLong(scholarshipid));
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLogForFind(user, command);
                 }
 
                 //apply by student
                 if (user != null && command.equalsIgnoreCase("apply") && user.getRole().equalsIgnoreCase("Student")) {
                     ApplyByStudentUseCase applyByStudentUseCase = new ApplyByStudentUseCaseImpl();
                     applyByStudentUseCase.apply();
+                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                    logUseCase.writingLogForFind(user, command);
+
                 }
 
 
