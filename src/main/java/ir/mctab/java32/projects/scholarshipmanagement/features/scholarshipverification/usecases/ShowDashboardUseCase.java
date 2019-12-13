@@ -5,6 +5,6 @@ import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 import java.sql.SQLException;
 
 @UseCase
-public interface DashboardUseCase {
+public interface ShowDashboardUseCase {
     void execute() throws SQLException;
 }

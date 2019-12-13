@@ -3,6 +3,9 @@ package ir.mctab.java32.projects.scholarshipmanagement;
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.impl.*;
 import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.*;
 import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.impl.LogUseCaseImpl;
+import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.impl.ReadingLogUseCaseImpl;
+import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.usecases.LogUseCase;
+import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.usecases.ReadingLogUseCase;
 import ir.mctab.java32.projects.scholarshipmanagement.model.User;
 
 import java.sql.SQLException;
@@ -35,7 +38,7 @@ public class ScholarshipManagementApplication {
                 //_____________________________________________________________________________________________________________
                 //show dashboard
                 if (user == null && command.equalsIgnoreCase("dashboard")) {
-                    DashboardUseCase dashboardUseCase = new DashboardUseCaseImpl();
+                    ShowDashboardUseCase dashboardUseCase = new ShowDashboardUseCaseImpl();
                     dashboardUseCase.execute();
                 }
                 //_____________________________________________________________________________________________________________
@@ -53,9 +56,11 @@ public class ScholarshipManagementApplication {
                             = new AcceptScholarshipBySupervisorUseCaseImpl();
                     System.out.println("Scholarship Id: ");
                     String scholarshipId = scanner.nextLine();
-                    acceptScholarshipBySupervisorUseCase.accept(Long.parseLong(scholarshipId));
-                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
+                    boolean isDone = acceptScholarshipBySupervisorUseCase.accept(Long.parseLong(scholarshipId));
+                    if (isDone) {
+                        LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                        logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
+                    }
                 }
                 // reject by supervisor
                 if (user != null && command.equalsIgnoreCase("svreject") && user.getRole().equalsIgnoreCase("Supervisor")) {
@@ -63,9 +68,11 @@ public class ScholarshipManagementApplication {
                             = new RejectScholarshipBySupervisorUseCaseImpl();
                     System.out.println("Scholarship Id: ");
                     String scholarshipID = scanner.nextLine();
-                    rejectScholarshipBySupervisorUseCase.reject(Long.parseLong(scholarshipID));
-                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipID));
+                    boolean isDone = rejectScholarshipBySupervisorUseCase.reject(Long.parseLong(scholarshipID));
+                    if (isDone) {
+                        LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                        logUseCase.writingLog(user, command, Long.parseLong(scholarshipID));
+                    }
                 }
                 //_____________________________________________________________________________________________________________
 
@@ -83,9 +90,11 @@ public class ScholarshipManagementApplication {
                             = new AcceptScholarshipByManagerUseCaseImpl();
                     System.out.println("Scholarship Id: ");
                     String scholarshipId = scanner.nextLine();
-                    acceptScholarshipByManagerUseCase.accept(Long.parseLong(scholarshipId));
-                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
+                    boolean isDone = acceptScholarshipByManagerUseCase.accept(Long.parseLong(scholarshipId));
+                    if (isDone) {
+                        LogUseCase logUseCase = new LogUseCaseImpl();
+                        logUseCase.writingLog(user, command, Long.parseLong(scholarshipId));
+                    }
                 }
                 // reject by manager
                 if (user != null && command.equalsIgnoreCase("mgreject") && user.getRole().equalsIgnoreCase("Manager")) {
@@ -93,9 +102,23 @@ public class ScholarshipManagementApplication {
                             = new RejectScholarshipByManagerUseCaseImpl();
                     System.out.println("Scholarship Id: ");
                     String ScholarshipID = scanner.nextLine();
-                    rejectScholarshipByManagerUseCase.reject(Long.parseLong(ScholarshipID));
+                    boolean isDone = rejectScholarshipByManagerUseCase.reject(Long.parseLong(ScholarshipID));
                     LogUseCaseImpl logUseCase = new LogUseCaseImpl();
                     logUseCase.writingLog(user, command, Long.parseLong(ScholarshipID));
+                }
+                // show log to manager according to user role
+                if (user != null && command.equalsIgnoreCase("log by role") && user.getRole().equalsIgnoreCase("Manager")) {
+                    ReadingLogUseCase readingLogUseCase = new ReadingLogUseCaseImpl();
+                    System.out.println("type the role you want to see their logs : ");
+                    String role = scanner.nextLine();
+                    readingLogUseCase.readingLogByRole(role);
+                }
+                // show log to manager according to date
+                if (user != null && command.equalsIgnoreCase("log by date") && user.getRole().equalsIgnoreCase("Manager")) {
+                    ReadingLogUseCase readingLogUseCase = new ReadingLogUseCaseImpl();
+                    System.out.println("type the date you want to see the logs (yyyy/mm/dd): ");
+                    String date = scanner.nextLine();
+                    readingLogUseCase.readingLogByDate(date);
                 }
                 //_____________________________________________________________________________________________________________
 
@@ -113,9 +136,11 @@ public class ScholarshipManagementApplication {
                             = new ReceiveScholarshipByUniversityUseCaseImpl();
                     System.out.println("Scholarship Id: ");
                     String ScholarshipID = scanner.nextLine();
-                    receiveScholarshipByUniversityUseCase.receive(Long.parseLong(ScholarshipID));
-                    LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLog(user, command, Long.parseLong(ScholarshipID));
+                    boolean isDone = receiveScholarshipByUniversityUseCase.receive(Long.parseLong(ScholarshipID));
+                    if (isDone) {
+                        LogUseCaseImpl logUseCase = new LogUseCaseImpl();
+                        logUseCase.writingLog(user, command, Long.parseLong(ScholarshipID));
+                    }
                 }
 
                 //_____________________________________________________________________________________________________________

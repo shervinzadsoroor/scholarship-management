@@ -11,13 +11,13 @@ import java.sql.*;
 
 @Service
 public class AcceptScholarshipByManagerUseCaseImpl implements AcceptScholarshipByManagerUseCase {
-    public void accept(Long scholarshipId) {
+    public boolean accept(Long scholarshipId) {
         User user = AuthenticationService.getInstance().getLoginUser();
 
+        boolean isIdExists = false;
         // connection
         try {
             Connection connection = DatabaseConfig.getDatabaseConnection();
-            boolean isIdExists = false;
 
             //checking the validity of id.......................................
             String sql1 = "select id from scholarship where status='AcceptedBySupervisor'";
@@ -49,5 +49,6 @@ public class AcceptScholarshipByManagerUseCaseImpl implements AcceptScholarshipB
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return isIdExists;
     }
 }

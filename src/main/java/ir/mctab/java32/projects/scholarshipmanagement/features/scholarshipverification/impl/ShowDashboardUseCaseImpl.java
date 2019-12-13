@@ -1,11 +1,11 @@
 package ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.impl;
 
 import ir.mctab.java32.projects.scholarshipmanagement.core.config.DatabaseConfig;
-import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.DashboardUseCase;
+import ir.mctab.java32.projects.scholarshipmanagement.features.scholarshipverification.usecases.ShowDashboardUseCase;
 
 import java.sql.*;
 
-public class DashboardUseCaseImpl implements DashboardUseCase {
+public class ShowDashboardUseCaseImpl implements ShowDashboardUseCase {
     public void execute() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

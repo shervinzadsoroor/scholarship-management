@@ -8,17 +8,33 @@ import java.sql.*;
 
 @Service
 public class RejectScholarshipBySupervisorUseCaseImpl implements RejectScholarshipBySupervisorUseCase {
-    public void reject(Long id) {
+    public boolean reject(Long scholarshipId) {
         Connection connection = null;
         Statement statement = null;
+        boolean isIdExists = false;
         try {
-            connection = DatabaseConfig.getDatabaseConnection();
-            statement = connection.createStatement();
-            String sql = "update scholarship set status='RejectedBySupervisor' where id=" + id;
-            statement.executeUpdate(sql);
+            //checking the validity of id.......................................
+            String sql1 = "select id from scholarship where status='RequestedByStudent'";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+            ResultSet rs = preparedStatement1.executeQuery();
+            while (rs.next()) {
+                Long dbId = rs.getLong("id");
+                if (dbId == scholarshipId) {
+                    isIdExists = true;
+                }
+            }
+            //...................................................................
+            if (isIdExists) {
+                connection = DatabaseConfig.getDatabaseConnection();
+                statement = connection.createStatement();
+                String sql = "update scholarship set status='RejectedBySupervisor' where id=" + scholarshipId;
+                statement.executeUpdate(sql);
+            } else {
+                System.out.println("ID NOT FOUND !!!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return isIdExists;
     }
 }

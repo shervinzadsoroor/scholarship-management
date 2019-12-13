@@ -2,7 +2,9 @@ package ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.u
 
 import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.UseCase;
 import ir.mctab.java32.projects.scholarshipmanagement.model.User;
+
 @UseCase
-public interface LoginUseCase {
-    User login(String username, String password);
+public interface ReadingLogUseCase {
+    void readingLogByRole(String role);
+    void readingLogByDate(String date);
 }

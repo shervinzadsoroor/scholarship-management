@@ -6,5 +6,5 @@ import java.sql.SQLException;
 
 @UseCase
 public interface RejectScholarshipBySupervisorUseCase {
-    void reject(Long id) throws SQLException;
+    boolean reject(Long id) throws SQLException;
 }

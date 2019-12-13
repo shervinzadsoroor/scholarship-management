@@ -86,12 +86,12 @@ public class User {
     }
 
 
-    public static void showOptionsForEachRole(User user){
+    public static void showOptionsForEachRole(User user) {
         if (user != null && user.getRole().equalsIgnoreCase("Supervisor")) {
             System.out.println("what do you want? ( svlist | svaccept | svreject | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Manager")) {
-            System.out.println("what do you want? ( mglist | mgaccept | mgreject | logout):");
+            System.out.println("what do you want? ( mglist | mgaccept | mgreject | log by role | log by date | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Student")) {
             System.out.println("what do you want? ( status | apply | logout):");

@@ -1,5 +1,6 @@
 package ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.impl;
 
+import ir.mctab.java32.projects.scholarshipmanagement.core.annotations.Service;
 import ir.mctab.java32.projects.scholarshipmanagement.core.config.DatabaseConfig;
 import ir.mctab.java32.projects.scholarshipmanagement.features.usermanagement.usecases.LogUseCase;
 import ir.mctab.java32.projects.scholarshipmanagement.model.User;
@@ -8,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+@Service
 public class LogUseCaseImpl implements LogUseCase {
     public String writingLogForAcceptAndReject(User user, String command, Long id) {
 
@@ -61,10 +62,14 @@ public class LogUseCaseImpl implements LogUseCase {
 
             log = log + time;
 
-            String sql = "insert into log(log) values (?)";
+
+            String sql = "insert into log(log,scholarship_id,user_role,date) values (?,?,?,?)";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, log);
+            preparedStatement.setLong(2, id);
+            preparedStatement.setString(3, user.getRole());
+            preparedStatement.setString(4, time);
             preparedStatement.execute ();
 
             preparedStatement.close();
@@ -89,10 +94,12 @@ public class LogUseCaseImpl implements LogUseCase {
 
             log = log + time;
 
-            String sql = "insert into log(log) values (?)";
+            String sql = "insert into log(log,user_role,date) values (?,?,?)";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, log);
+            preparedStatement.setString(2, user.getRole());
+            preparedStatement.setString(3, time);
             preparedStatement.execute();
 
             preparedStatement.close();
