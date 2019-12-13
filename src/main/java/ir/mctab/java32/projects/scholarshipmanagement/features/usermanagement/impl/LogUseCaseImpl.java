@@ -9,39 +9,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 @Service
 public class LogUseCaseImpl implements LogUseCase {
-    public String writingLogForAcceptAndReject(User user, String command, Long id) {
+    public String LogStringForAcceptAndReject(User user, String command, Long id) {
 
         String log = null;
         if (user.getRole().equalsIgnoreCase("Supervisor") && command.equalsIgnoreCase("svaccept")) {
-            log = "accepted id " + id + " by supervisor - ";
+            log = "accepted id " + id + " by supervisor";
         } else if (user.getRole().equalsIgnoreCase("Supervisor") && command.equalsIgnoreCase("svreject")) {
-            log = "rejected id " + id + " by supervisor - ";
+            log = "rejected id " + id + " by supervisor";
         } else if (user.getRole().equalsIgnoreCase("Manager") && command.equalsIgnoreCase("mgaccept")) {
-            log = "accepted id " + id + " by manager - ";
+            log = "accepted id " + id + " by manager";
         } else if (user.getRole().equalsIgnoreCase("Manager") && command.equalsIgnoreCase("mgreject")) {
-            log = "rejected id " + id + " by manager - ";
+            log = "rejected id " + id + " by manager";
         } else if (user.getRole().equalsIgnoreCase("University") && command.equalsIgnoreCase("receive")) {
-            log = "received id " + id + " by university - ";
+            log = "received id " + id + " by university";
         }
         return log;
 
     }
 
-    public String writingLogForFind(User user, String command) {
+    public String LogStringForFind(User user, String command) {
 
         String log = null;
         if (user.getRole().equalsIgnoreCase("Student") && command.equalsIgnoreCase("apply")) {
-            log = "apply successfully by student - ";
+            log = "apply successfully by student";
         } else if (user.getRole().equalsIgnoreCase("Student") && command.equalsIgnoreCase("status")) {
-            log = "status have been seen by student - ";
+            log = "status have been seen by student";
         } else if (user.getRole().equalsIgnoreCase("Supervisor") && command.equalsIgnoreCase("svlist")) {
-            log = "scholarships seen by supervisor - ";
+            log = "scholarships seen by supervisor";
         } else if (user.getRole().equalsIgnoreCase("Manager") && command.equalsIgnoreCase("mglist")) {
-            log = "scholarships seen by manager - ";
+            log = "scholarships seen by manager";
         } else if (user.getRole().equalsIgnoreCase("University") && command.equalsIgnoreCase("unilist")) {
-            log = "scholarships seen by university - ";
+            log = "scholarships seen by university";
         }
         return log;
 
@@ -57,11 +58,7 @@ public class LogUseCaseImpl implements LogUseCase {
             LocalDateTime now = LocalDateTime.now();
             String time = dtf.format(now);
 
-
-            String log = writingLogForAcceptAndReject(user, command, id);
-
-            log = log + time;
-
+            String log = LogStringForAcceptAndReject(user, command, id);
 
             String sql = "insert into log(log,scholarship_id,user_role,date) values (?,?,?,?)";
 
@@ -70,7 +67,7 @@ public class LogUseCaseImpl implements LogUseCase {
             preparedStatement.setLong(2, id);
             preparedStatement.setString(3, user.getRole());
             preparedStatement.setString(4, time);
-            preparedStatement.execute ();
+            preparedStatement.execute();
 
             preparedStatement.close();
 
@@ -89,10 +86,7 @@ public class LogUseCaseImpl implements LogUseCase {
             LocalDateTime now = LocalDateTime.now();
             String time = dtf.format(now);
 
-
-            String log = writingLogForFind(user, command);
-
-            log = log + time;
+            String log = LogStringForFind(user, command);
 
             String sql = "insert into log(log,user_role,date) values (?,?,?)";
 

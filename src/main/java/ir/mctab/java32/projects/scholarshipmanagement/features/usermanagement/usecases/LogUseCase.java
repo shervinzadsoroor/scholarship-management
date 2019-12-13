@@ -9,7 +9,7 @@ public interface LogUseCase {
 
     void writingLog(User user, String command);
 
-    String writingLogForFind(User user, String command);
+    String LogStringForFind(User user, String command);
 
-    String writingLogForAcceptAndReject(User user, String command, Long id);
+    String LogStringForAcceptAndReject(User user, String command, Long id);
 }

@@ -120,6 +120,13 @@ public class ScholarshipManagementApplication {
                     String date = scanner.nextLine();
                     readingLogUseCase.readingLogByDate(date);
                 }
+                // show log to manager according to id
+                if (user != null && command.equalsIgnoreCase("log by id") && user.getRole().equalsIgnoreCase("Manager")) {
+                    ReadingLogUseCase readingLogUseCase = new ReadingLogUseCaseImpl();
+                    System.out.println("enter the id you want to see the logs : ");
+                    String id = scanner.nextLine();
+                    readingLogUseCase.readingLogById(Long.parseLong(id));
+                }
                 //_____________________________________________________________________________________________________________
 
                 //find scholarship by university...................
@@ -153,7 +160,7 @@ public class ScholarshipManagementApplication {
                     String scholarshipid = scanner.nextLine();
                     findScholarshipByStudentUseCase.find(Long.parseLong(scholarshipid));
                     LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLogForFind(user, command);
+                    logUseCase.LogStringForFind(user, command);
                 }
 
                 //apply by student
@@ -161,7 +168,7 @@ public class ScholarshipManagementApplication {
                     ApplyByStudentUseCase applyByStudentUseCase = new ApplyByStudentUseCaseImpl();
                     applyByStudentUseCase.apply();
                     LogUseCaseImpl logUseCase = new LogUseCaseImpl();
-                    logUseCase.writingLogForFind(user, command);
+                    logUseCase.LogStringForFind(user, command);
 
                 }
 

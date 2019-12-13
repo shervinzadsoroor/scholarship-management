@@ -91,7 +91,7 @@ public class User {
             System.out.println("what do you want? ( svlist | svaccept | svreject | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Manager")) {
-            System.out.println("what do you want? ( mglist | mgaccept | mgreject | log by role | log by date | logout):");
+            System.out.println("what do you want? ( mglist | mgaccept | mgreject | log by role | log by date | log by id | logout):");
         }
         if (user != null && user.getRole().equalsIgnoreCase("Student")) {
             System.out.println("what do you want? ( status | apply | logout):");
