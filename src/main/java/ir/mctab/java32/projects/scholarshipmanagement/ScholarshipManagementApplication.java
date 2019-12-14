@@ -21,14 +21,14 @@ public class ScholarshipManagementApplication {
             User user = null;
             while (!command.equalsIgnoreCase("exit")) {
                 if (user == null) {
-                    System.out.println("what do you want? (dashboard | login | exit) :");
+                    System.out.println("what do you want? (login | exit) :");
                 }
                 //receive command from input
                 command = scanner.nextLine();
 
                 //checking the validity of command before login .............................
                 if (user == null && !command.equalsIgnoreCase("exit") &&
-                        !command.equalsIgnoreCase("login") && !command.equalsIgnoreCase("dashboard")) {
+                        !command.equalsIgnoreCase("login")) {
                     System.out.println("WRONG COMMAND !!!");
                 }
 
@@ -37,7 +37,10 @@ public class ScholarshipManagementApplication {
 
                 //_____________________________________________________________________________________________________________
                 //show dashboard
-                if (user == null && command.equalsIgnoreCase("dashboard")) {
+                if (((user != null) && command.equalsIgnoreCase("dashboard") &&
+                        user.getRole().equalsIgnoreCase("Manager")) ||
+                        ((user != null) && command.equalsIgnoreCase("dashboard") &&
+                        user.getRole().equalsIgnoreCase("Supervisor"))) {
                     ShowDashboardUseCase dashboardUseCase = new ShowDashboardUseCaseImpl();
                     dashboardUseCase.execute();
                 }
